@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:54:23 by hnagasak          #+#    #+#             */
-/*   Updated: 2023/07/14 06:36:49 by hnagasak         ###   ########.fr       */
+/*   Updated: 2023/07/14 08:46:42 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,25 +171,25 @@ int	ft_putptr(uintptr_t ptr)
 	return (len + 2);
 }
 
-int	ft_print_specifier(char *c, va_list args)
+int	ft_print_specifier(char *c, va_list *args)
 {
 	int	length;
 
 	length = 0;
 	if (*c == 'c')
-		length = ft_putchar((char)va_arg(args, int));
+		length = ft_putchar((char)va_arg(*args, int));
 	else if (*c == 's')
-		length = ft_putstr(va_arg(args, char *));
+		length = ft_putstr(va_arg(*args, char *));
 	else if (*c == 'p')
-		length = ft_putptr(va_arg(args, uintptr_t));
+		length = ft_putptr(va_arg(*args, uintptr_t));
 	else if (*c == 'd' || *c == 'i')
-		length = ft_putnbr(va_arg(args, int));
+		length = ft_putnbr(va_arg(*args, int));
 	else if (*c == 'u')
-		length = ft_putuint(va_arg(args, unsigned int));
+		length = ft_putuint(va_arg(*args, unsigned int));
 	else if (*c == 'X')
-		length = ft_puthex(va_arg(args, unsigned int), 1);
+		length = ft_puthex(va_arg(*args, unsigned int), 1);
 	else if (*c == 'x')
-		length = ft_puthex(va_arg(args, unsigned int), 0);
+		length = ft_puthex(va_arg(*args, unsigned int), 0);
 	else if (*c == '%')
 		length = ft_putchar('%');
 	else
@@ -209,7 +209,7 @@ int	ft_printf(const char *format, ...)
 	while (*c != '\0')
 	{
 		if (*c == '%')
-			length += ft_print_specifier(++c, args);
+			length += ft_print_specifier(++c, &args);
 		else
 			length += ft_putchar(*c);
 		c++;
