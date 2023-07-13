@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:54:23 by hnagasak          #+#    #+#             */
-/*   Updated: 2023/07/14 08:46:42 by hnagasak         ###   ########.fr       */
+/*   Updated: 2023/07/14 08:49:02 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	ft_putchar(char c)
 
 int	ft_putstr(char *str)
 {
+	if (str == NULL)
+		return (ft_putstr("(null)"));
 	ft_putstr_fd(str, 1);
 	return (ft_strlen(str));
 }
