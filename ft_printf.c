@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:54:23 by hnagasak          #+#    #+#             */
-/*   Updated: 2023/07/14 04:37:39 by hnagasak         ###   ########.fr       */
+/*   Updated: 2023/07/14 06:36:49 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,31 +66,16 @@ int	ft_putnbr(int num)
 	return (len);
 }
 
+int	ft_putchar(char c)
+{
+	ft_putchar_fd(c, 1);
+	return (1);
+}
+
 int	ft_putstr(char *str)
 {
 	ft_putstr_fd(str, 1);
 	return (ft_strlen(str));
-}
-
-int	ft_putchar(char c)
-{
-	int	len;
-
-	len = 1;
-	// printf("(c:%c) ",c);
-	// if (c == '0'){
-	// printf("null char\n");
-	// 	// len = ft_putstr("^@");
-	// }
-	// else
-	if (c == 0)
-	{
-		printf("null");
-		return (0);
-	}
-	else
-		ft_putchar_fd(c, 1);
-	return (len);
 }
 
 void	ft_ui2a(char *str, unsigned int n, int len)
