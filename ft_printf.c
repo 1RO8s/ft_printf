@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:54:23 by hnagasak          #+#    #+#             */
-/*   Updated: 2023/07/14 08:49:02 by hnagasak         ###   ########.fr       */
+/*   Updated: 2023/07/14 08:50:30 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_putuint(unsigned int num)
 
 char	ft_get_hex_base(unsigned int n, int isUpper)
 {
-	if (0 <= n && n < 9)
+	if (0 <= n && n <= 9)
 		return ('0' + n);
 	else if (10 <= n && n < 16 && isUpper)
 		return ('A' + (n - 10));
