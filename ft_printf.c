@@ -6,47 +6,11 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:54:23 by hnagasak          #+#    #+#             */
-/*   Updated: 2023/07/14 08:50:30 by hnagasak         ###   ########.fr       */
+/*   Updated: 2023/07/14 10:00:08 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static int	ft_count_hex_digit(unsigned int num)
-{
-	int				digit;
-	unsigned int	n;
-
-	digit = 1;
-	n = num / 16;
-	while (n != 0 && digit++)
-		n = n / 16;
-	return (digit);
-}
-
-static int	ft_count_uint_digit(unsigned int num)
-{
-	int				digit;
-	unsigned int	n;
-
-	digit = 1;
-	n = num / 10;
-	while (n != 0 && digit++)
-		n = n / 10;
-	return (digit);
-}
-
-static int	ft_count_ptr_digit(uintptr_t num)
-{
-	int			digit;
-	uintptr_t	n;
-
-	digit = 1;
-	n = num / 16;
-	while (n != 0 && digit++)
-		n = n / 16;
-	return (digit);
-}
 
 int	ft_putnbr(int num)
 {
@@ -80,99 +44,6 @@ int	ft_putstr(char *str)
 	return (ft_strlen(str));
 }
 
-void	ft_ui2a(char *str, unsigned int n, int len)
-{
-	if (0 <= n && n < 10)
-		*str = '0' + n;
-	else if (10 <= n)
-	{
-		ft_ui2a(str, n / 10, len - 1);
-		*(str + len - 1) = '0' + (n % 10);
-	}
-}
-
-int	ft_putuint(unsigned int num)
-{
-	char	*result;
-	int		len;
-
-	len = ft_count_uint_digit(num);
-	result = (char *)malloc((len + 1) * sizeof(char));
-	if (!result)
-		return (-1);
-	ft_ui2a(result, num, len);
-	ft_putstr(result);
-	free(result);
-	return (len);
-}
-
-char	ft_get_hex_base(unsigned int n, int isUpper)
-{
-	if (0 <= n && n <= 9)
-		return ('0' + n);
-	else if (10 <= n && n < 16 && isUpper)
-		return ('A' + (n - 10));
-	else if (10 <= n && n < 16 && !isUpper)
-		return ('a' + (n - 10));
-	else
-		return (0);
-}
-
-char	*ft_get_hex_str(char *str, unsigned int n, int len, int isUpper)
-{
-	if (0 <= n && n < 16)
-		*str = ft_get_hex_base(n, isUpper);
-	else if (16 <= n)
-	{
-		ft_get_hex_str(str, n / 16, len - 1, isUpper);
-		*(str + len - 1) = ft_get_hex_base(n % 16, isUpper);
-	}
-	return (str);
-}
-
-int	ft_puthex(unsigned int num, int isUpper)
-{
-	char	*str;
-	int		len;
-
-	len = ft_count_hex_digit(num);
-	str = (char *)malloc((len + 1) * sizeof(char));
-	if (!str)
-		return (-1);
-	str = ft_get_hex_str(str, num, len, isUpper);
-	ft_putstr(str);
-	free(str);
-	return (len);
-}
-
-char	*ft_get_ptr_str(char *str, uintptr_t n, int len)
-{
-	if (0 <= n && n < 16)
-		*str = ft_get_hex_base(n, 0);
-	else if (16 <= n)
-	{
-		ft_get_ptr_str(str, n / 16, len - 1);
-		*(str + len - 1) = ft_get_hex_base(n % 16, 0);
-	}
-	return (str);
-}
-
-int	ft_putptr(uintptr_t ptr)
-{
-	char	*str;
-	int		len;
-
-	len = ft_count_ptr_digit(ptr);
-	str = (char *)malloc((len + 1) * sizeof(char));
-	if (!str)
-		return (-1);
-	str = ft_get_ptr_str(str, ptr, len);
-	ft_putstr("0x");
-	ft_putstr(str);
-	free(str);
-	return (len + 2);
-}
-
 int	ft_print_specifier(char *c, va_list *args)
 {
 	int	length;
@@ -189,9 +60,9 @@ int	ft_print_specifier(char *c, va_list *args)
 	else if (*c == 'u')
 		length = ft_putuint(va_arg(*args, unsigned int));
 	else if (*c == 'X')
-		length = ft_puthex(va_arg(*args, unsigned int), 1);
+		length = ft_puthex(va_arg(*args, unsigned int), UPPER);
 	else if (*c == 'x')
-		length = ft_puthex(va_arg(*args, unsigned int), 0);
+		length = ft_puthex(va_arg(*args, unsigned int), LOWER);
 	else if (*c == '%')
 		length = ft_putchar('%');
 	else

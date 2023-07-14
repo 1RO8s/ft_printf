@@ -4,7 +4,10 @@ NAME	= libftprintf.a
 
 # コンパイル対象ファイル
 SRCS = \
-ft_isalpha.c\
+ft_printf.c\
+ft_puthex.c\
+ft_putptr.c\
+ft_putuint.c\
 
 
 # 生成したいオブジェクト
@@ -16,11 +19,16 @@ CC		= cc
 # コンパイルオプション
 CFLAGS	= -Wall -Wextra -Werror
 
+INCLUDE = header
+
 $(NAME): $(OBJS)
+	$(MAKE) -C ./libft
+	cp libft/libft.a $(NAME)
 	ar rcs $(NAME) $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+	# $(CC) $(CFLAGS) -I${INCLUDE} -c $< -o $@
 
 .PHONY: all
 all: ${NAME}

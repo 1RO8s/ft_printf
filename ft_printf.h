@@ -6,7 +6,7 @@
 /*   By: hnagasak <hnagasak@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 16:28:46 by hnagasak          #+#    #+#             */
-/*   Updated: 2023/07/06 08:30:10 by hnagasak         ###   ########.fr       */
+/*   Updated: 2023/07/14 09:53:28 by hnagasak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-int	ft_printf(const char *format, ...);
+# define UPPER 1
+# define LOWER 0
+
+char	ft_get_hex_base(unsigned int n, int isUpper);
+int		ft_puthex(unsigned int num, int isUpper);
+int		ft_putstr(char *str);
+int		ft_printf(const char *format, ...);
+int		ft_putstr(char *str);
+int		ft_putptr(uintptr_t ptr);
+int		ft_putuint(unsigned int num);
 
 #endif
